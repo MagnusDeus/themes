@@ -59,15 +59,15 @@ class ThemesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['themes'] = $this->app->share(function ($app) {
-            return new Repository(
-                new Finder(),
-                $app['config'],
-                $app['view'],
-                $app['translator'],
-                $app['cache.store']
-            );
-        });
+		$this->app->singleton('themes', function ($app) {
+			return new Repository(
+				new Finder(),
+				$app['config'],
+				$app['view'],
+				$app['translator'],
+				$app['cache.store']
+			);
+		});
 
         $this->registerCommands();
 
